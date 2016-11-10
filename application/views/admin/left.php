@@ -43,10 +43,14 @@
 
 				<a href="" class="exp inactive">
 					<span>Tạo tài khoản</span>
-					<strong>3</strong>
+					<strong>4</strong>
 				</a>
 
 				<ul style="display: none;" class="sub">
+								<li>
+									<a href="<?php echo admin_url('taotaikhoan/taosub')?>">
+										Tạo tk SUB							</a>
+								</li>
 								<li>
 									<a href="<?php echo admin_url('taotaikhoan/taotongdaily')?>">
 										Tạo tk Tổng đại lý							</a>
