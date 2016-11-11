@@ -1,6 +1,6 @@
 <?php
 Class Login extends MY_controller{
-    
+
     function index()
     {
         $this->load->library('form_validation');
@@ -11,14 +11,23 @@ Class Login extends MY_controller{
             if($this->form_validation->run())
             {
                 $this->session->set_userdata('login', true);
-                
+
+                // phan nay la tui tu them , de luu id cua admin vao session
+                $username = $this->input->post('username');
+
+                $this->load->model('admin_model');
+                $info = $this->admin_model->get_info('username', $username);
+
+                $this->session->set_userdata('admin_id', $info->id);
+                ///////////////////////
+
                 redirect(admin_url('home'));
             }
         }
-        
+
         $this->load->view('admin/login/index');
     }
-    
+
     /*
      * Kiem tra username va password co chinh xac khong
      */
@@ -27,7 +36,7 @@ Class Login extends MY_controller{
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $password = md5($password);
-        
+
         $this->load->model('admin_model');
         $where = array('username' => $username , 'password' => $password);
         if($this->admin_model->check_exists($where))

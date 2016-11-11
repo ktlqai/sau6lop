@@ -67,6 +67,21 @@
 
 		</li>
 
+		<li class="nhap_don_hang">
+
+			<a href="" class="exp inactive">
+				<span>Nhập đơn hàng</span>
+				<strong>1</strong>
+			</a>
+
+			<ul style="display: none;" class="sub">
+							<li>
+								<a href="<?php echo admin_url('donhang/add')?>">
+									Đơn hàng							</a>
+							</li>
+			</ul>
+		</li>
+
 		<li class="tran">
 
 				<a href="" class="exp inactive">

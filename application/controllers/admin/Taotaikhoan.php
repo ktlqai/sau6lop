@@ -126,6 +126,14 @@ class Taotaikhoan extends MY_Controller {
 				 $cmnd  = $this->input->post('cmnd');
 				 $address_giaohang  = $this->input->post('address_giaohang');
 				 $dob  = $this->input->post('dob');
+
+				 $sub = $this->input->post('sub');
+
+				 $sub_and_sub_id = explode('-', $sub);
+	 			 $sub_id = $sub_and_sub_id[count($sub_and_sub_id)-1];
+
+				 //echo $sub_id; die();
+
 	       //du lieu them vao bang thanh vien
 	       $data = array(
 	           'name'     => $name,
@@ -136,7 +144,9 @@ class Taotaikhoan extends MY_Controller {
 	           'dia_chi_HKTT'  => $address,
 						 'CMND' => $cmnd,
 	           'dia_chi_giao_hang'    => $address_giaohang,
-	           'ngay_thang_nam_sinh'  => $dob
+	           'ngay_thang_nam_sinh'  => $dob,
+
+						 'sub_id' => $sub_id
  	       );
 	       //them thanh vien vao trong csdl
 	       if($this->tongdaily_model->create($data))

@@ -9,27 +9,33 @@ class AutocompleteJQueryUI extends MY_Controller {
 		// Tai cac file thanh phan
 		$this->load->model('user_model');
 		//$this->lang->load('admin/user');
-		
+
 		$this->load->model('user_refer_model');
+
+		$this->load->model('sub_model');
+
+		$this->load->model('tongdaily_model');
+
+		$this->load->model('product_model');
 	}
-	
-	
-	
+
+
+
 	function searchUserNames() {
 		if(isset($_GET['term']))
 {
 			//lay từ khóa cần tìm kiếm
 			$key = $_GET['term'];
-		
-		
-		
+
+
+
 			$input = array();
 			$input['like'] = array('name', $key);
 			//lay toan bo bài viết
 			$list = array();
 			$list = $this->user_model->get_list($input);
 			$this->data['list'] = $list;
-			
+
 			foreach ($list as $row) {
 				$results[] = array('label' => $row->name . '-' . $row->id);
 			}
@@ -37,22 +43,22 @@ class AutocompleteJQueryUI extends MY_Controller {
 			echo json_encode($results);
 		}
 	}
-	
+
 	function searchUserReferNames() {
 		if(isset($_GET['term']))
 {
 			//lay từ khóa cần tìm kiếm
 			$key = $_GET['term'];
-		
-		
-		
+
+
+
 			$input = array();
 			$input['like'] = array('name', $key);
 			//lay toan bo bài viết
 			$list = array();
 			$list = $this->user_refer_model->get_list($input);
 			$this->data['list'] = $list;
-			
+
 			foreach ($list as $row) {
 				$results[] = array('label' => $row->name . '-' . $row->id);
 			}
@@ -60,6 +66,76 @@ class AutocompleteJQueryUI extends MY_Controller {
 			echo json_encode($results);
 		}
 	}
+
+	function searchSubs() {
+		if(isset($_GET['term']))
+{
+			//lay từ khóa cần tìm kiếm
+			$key = $_GET['term'];
+
+
+
+			$input = array();
+			$input['like'] = array('name', $key);
+			//lay toan bo bài viết
+			$list = array();
+			$list = $this->sub_model->get_list($input);
+			$this->data['list'] = $list;
+
+			foreach ($list as $row) {
+				$results[] = array('label' => $row->name . '-' . $row->id);
+			}
+			//trả về dữ liệu dạng json
+			echo json_encode($results);
+		}
+	}
+
+	function searchTongdailys() {
+		if(isset($_GET['term']))
+{
+			//lay từ khóa cần tìm kiếm
+			$key = $_GET['term'];
+
+
+
+			$input = array();
+			$input['like'] = array('name', $key);
+			//lay toan bo bài viết
+			$list = array();
+			$list = $this->tongdaily_model->get_list($input);
+			$this->data['list'] = $list;
+
+			foreach ($list as $row) {
+				$results[] = array('label' => $row->name . '-' . $row->id);
+			}
+			//trả về dữ liệu dạng json
+			echo json_encode($results);
+		}
+	}
+
+	function searchProducts() {
+		if(isset($_GET['term']))
+{
+			//lay từ khóa cần tìm kiếm
+			$key = $_GET['term'];
+
+
+
+			$input = array();
+			$input['like'] = array('name', $key);
+			//lay toan bo bài viết
+			$list = array();
+			$list = $this->product_model->get_list($input);
+			$this->data['list'] = $list;
+
+			foreach ($list as $row) {
+				$results[] = array('label' => $row->name . '-' . $row->id);
+			}
+			//trả về dữ liệu dạng json
+			echo json_encode($results);
+		}
+	}
+
 
 
 /*

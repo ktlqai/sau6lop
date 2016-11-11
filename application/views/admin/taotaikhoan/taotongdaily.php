@@ -3,7 +3,9 @@
 {
 	$(document).ready(function()
 	{
-
+		$( "input#param_sub" ).autocomplete({
+			source:'<?php echo admin_url('autocompletejqueryui/searchSubs'); ?>', //link xử lý dữ liệu tìm kiếm
+		});
 	});
 })(jQuery);
 </script>
@@ -32,6 +34,16 @@
 					</div>
 					<div class="clear"></div>
 				</div>-->
+
+				<div class="formRow">
+					<label class="formLeft" for="param_sub"><?php echo 'Người giới thiệu';//lang('email'); ?>:<span class="req">*</span></label>
+					<div class="formRight">
+						<span class="oneTwo"><input name="sub" id="param_sub" _autocheck="true" type="text" /></span>
+						<span name="sub_autocheck" class="autocheck"></span>
+						<div name="sub_error" class="clear error"><?php echo form_error('sub')?></div>
+					</div>
+					<div class="clear"></div>
+				</div>
 
 				<div class="formRow">
 					<label class="formLeft" for="param_username"><?php echo 'Tên đăng nhập';//lang('email'); ?>:<span class="req">*</span></label>
