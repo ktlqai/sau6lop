@@ -16,7 +16,19 @@ Class Login extends MY_controller{
                 $username = $this->input->post('username');
 
                 $this->load->model('admin_model');
-                $info = $this->admin_model->get_info('username', $username);
+
+                $input = array('where' => array('username' => $username));
+                
+                $info = $this->admin_model->get_row($input);
+
+                //$query = $this->db->query('SELECT * FROM admin WHERE username = \'' . $username . '\'');//$this->db->get_where('admin', array('username', $username));
+
+                //$this->db->select('id');
+                //$query = $this->db->get_where('admin', array('username' => $username));
+
+				//$info = $query->row();
+
+                //echo var_dump($info->id); die();
 
                 $this->session->set_userdata('admin_id', $info->id);
                 ///////////////////////

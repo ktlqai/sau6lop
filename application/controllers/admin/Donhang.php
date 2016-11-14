@@ -77,6 +77,8 @@ Class Donhang extends MY_Controller
 			$user_refer_and_user_refer_id = explode('-', $user_refer);
 			$user_refer_id = $user_refer_and_user_refer_id[1];
 
+			//echo $this->session->userdata('admin_id'); die();
+
 			//du lieu them vao bang thanh vien
 			$data = array(
         'table_seller' => 'admin',

@@ -18,7 +18,7 @@
 			source:'<?php echo admin_url('autocompletejqueryui/searchSubs'); ?>', //link xử lý dữ liệu tìm kiếm
 		});
 
-		$( "input.class_param_product_name" ).autocomplete({
+		$( "input#param_product_name" ).autocomplete({
 			source:'<?php echo admin_url('autocompletejqueryui/searchProducts'); ?>', //link xử lý dữ liệu tìm kiếm
 		});
 	});
@@ -245,6 +245,12 @@
 					 \
 					<div style="clear: both;"></div> \
 					</div>'); //add input box
+
+						// add auto-complete event to the new dong donhang
+						$( "input#param_product_name" ).autocomplete({
+			source:'<?php echo admin_url('autocompletejqueryui/searchProducts'); ?>', //link xử lý dữ liệu tìm kiếm
+		});
+
 						}
 					});
 
