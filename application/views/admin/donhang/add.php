@@ -11,8 +11,15 @@
 	{
 		//sử dụng autocomplete với input có id = key
 		$( "input#param_user_name" ).autocomplete({
-			source:'<?php echo admin_url('autocompletejqueryui/searchTongdailys'); ?>', //link xử lý dữ liệu tìm kiếm
+			source:'<?php echo admin_url('autocompletejqueryui/searchtongdailys'); ?>', //link xử lý dữ liệu tìm kiếm
+		}); // mac dinh thi coi nhu chon cap_bac tong dai ly <- do do gan autocomplete tong dai ly
+
+		$( "select#param_cap_bac" ).change(function() {
+			$( "input#param_user_name" ).autocomplete({
+				source:'<?php echo admin_url('autocompletejqueryui/search'); ?>' + $(this).val() + 's', //link xử lý dữ liệu tìm kiếm
+			});
 		});
+		
 
 		$( "input#param_user_refer" ).autocomplete({
 			source:'<?php echo admin_url('autocompletejqueryui/searchSubs'); ?>', //link xử lý dữ liệu tìm kiếm
@@ -38,7 +45,7 @@
 			<div class="widget">
 				<div class="title">
 					<img src="<?php echo public_url('admin'); ?>/images/icons/dark/add.png" class="titleIcon" />
-					<h6><?php echo lang('add'); ?> <?php echo lang('mod_user'); ?></h6>
+					<h6><?php echo lang('add'); ?> <?php echo 'Đơn hàng'//lang('mod_user'); ?></h6>
 				</div>
 
 				<style>

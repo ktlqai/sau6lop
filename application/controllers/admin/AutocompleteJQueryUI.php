@@ -16,6 +16,10 @@ class AutocompleteJQueryUI extends MY_Controller {
 
 		$this->load->model('tongdaily_model');
 
+		$this->load->model('daily_model');
+
+		$this->load->model('chinhanh_model');
+
 		$this->load->model('product_model');
 	}
 
@@ -103,6 +107,52 @@ class AutocompleteJQueryUI extends MY_Controller {
 			//lay toan bo bài viết
 			$list = array();
 			$list = $this->tongdaily_model->get_list($input);
+			$this->data['list'] = $list;
+
+			foreach ($list as $row) {
+				$results[] = array('label' => $row->name . '-' . $row->id);
+			}
+			//trả về dữ liệu dạng json
+			echo json_encode($results);
+		}
+	}
+
+	function searchDailys() {
+		if(isset($_GET['term']))
+{
+			//lay từ khóa cần tìm kiếm
+			$key = $_GET['term'];
+
+
+
+			$input = array();
+			$input['like'] = array('name', $key);
+			//lay toan bo bài viết
+			$list = array();
+			$list = $this->daily_model->get_list($input);
+			$this->data['list'] = $list;
+
+			foreach ($list as $row) {
+				$results[] = array('label' => $row->name . '-' . $row->id);
+			}
+			//trả về dữ liệu dạng json
+			echo json_encode($results);
+		}
+	}
+
+	function searchChinhanhs() {
+		if(isset($_GET['term']))
+{
+			//lay từ khóa cần tìm kiếm
+			$key = $_GET['term'];
+
+
+
+			$input = array();
+			$input['like'] = array('name', $key);
+			//lay toan bo bài viết
+			$list = array();
+			$list = $this->chinhanh_model->get_list($input);
 			$this->data['list'] = $list;
 
 			foreach ($list as $row) {

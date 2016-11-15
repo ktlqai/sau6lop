@@ -34,7 +34,7 @@
 				<ul style="display: none;" class="sub">
 								<li>
 									<a href="<?php echo admin_url('product/index')?>">
-										Sản phẩm							</a>
+										Nhập sản phẩm							</a>
 								</li>
 				</ul>
 			</li>
@@ -77,7 +77,7 @@
 			<ul style="display: none;" class="sub">
 							<li>
 								<a href="<?php echo admin_url('donhang/add')?>">
-									Đơn hàng							</a>
+									Nhập đơn hàng							</a>
 							</li>
 			</ul>
 		</li>
