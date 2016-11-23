@@ -24,7 +24,7 @@
 	padding-top:15px;
 }
 </style>
-<div class="widget mg0 form_load" id="main_popup">
+<div class="widgetx xmg0 xform_load" id="xmain_popup">
 
 	<div class="title">
 		<img src="<?php echo public_url('admin'); ?>/images/icons/dark/cart.png" alt="" class="titleIcon" />
@@ -45,11 +45,11 @@
 						<div class="clear"></div>
 					</li>
 					
-					<li>
+					<!--<li>
 						<span><?php echo lang('created'); ?>:</span>
 						<?php echo mdate('%d-%m-%Y',$info->created)?>
 						<div class="clear"></div>
-					</li>
+					</li>-->
 					
 					<li>
 						<span><?php echo lang('tran_amount'); ?>:</span>

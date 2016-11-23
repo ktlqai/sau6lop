@@ -41,7 +41,7 @@
 							
 							<td colspan='2' style='width:60px'>
 							<input type="submit" class="button blueB" value="<?php echo lang('filter')?>" />
-							<input type="reset" class="basic" value="Reset" onclick="window.location.href = '<?php echo admin_url('dathang'); ?>'; ">
+							<input type="reset" class="basic" value="Reset" onclick="window.location.href = '<?php echo admin_url('donhang'); ?>'; ">
 							</td>
 							
 						</tr>
@@ -79,8 +79,11 @@
 					<td style="width:21px;"><img src="<?php echo public_url('admin/images')?>/icons/tableArrows.png"></td>
 					<td style="width:60px;">Mã số</td>
 					<td>Số tiền</td>
-					<td>Cổng thanh toán</td>
-					<td>Trạng thái</td>
+					<!--<td>Cổng thanh toán</td>
+					<td>Trạng thái</td>-->
+					<td>Cấp bậc</td>
+					<td>Khách hàng</td>
+					<td>Sub</td>
 					
 					<td style="width:75px;"><!--(Ko phải Ngày tạo) -->Ngày giao dịch</td>
 					<td style="width:120px;">Hành động</td>
@@ -89,7 +92,7 @@
 			
  			<tfoot class="auto_check_pages">
 				<tr>
-					<td colspan="7">
+					<td colspan="8">
 						 <div class="list_action itemActions">
 								<a url="<?php echo admin_url('dathang/delete_all')?>" class="button blueB" id="submit" href="#submit">
 									<span style="color:white;">Xóa hết</span>
@@ -114,30 +117,33 @@
 					<td>
 					  <?php echo number_format($row->amount)?> đ					
 					 </td>
-				    <td><?php echo $row->payment?></td>
+				    <!--<td><?php echo $row->payment?></td>
 					<td>
 					<?php 
 					if($row->status == 0)
 					{
-					    echo 'Chưa thanh toán';
+					    //echo 'Chưa thanh toán';
 					}elseif ($row->status == 1)
 					{
-					    echo 'Đã thanh toán';
+					    //echo 'Đã thanh toán';
 					}else{
-					    echo 'Thanh toán thất bại';
+					    //echo 'Thanh toán thất bại';
 					}
 					?>
-					</td>
+					</td>-->
+					<td><?php echo $row->cap_bac ?></td>
+					<td><?php echo $row->khach_hang ?></td>
+					<td><?php echo $row->sub ?></td>
 					
 					
-					<td class="textC"><?php echo date_mysql_to_inverse($row->notkeyword_date)//get_date($row->created)?></td>
+					<td class="textC"><?php echo date_mysql_to_inverse($row->ngay_giao_dich)//get_date($row->created)?></td>
 					
 					<td class="option textC">
-						<a title="Xem chi tiết giao dịch" class="tipS lightbox" href="<?php echo admin_url('dathang/view/'.$row->id)?>">
+						<a title="Xem chi tiết giao dịch" class="tipS lightbox" href="<?php echo admin_url('donhang/view/'.$row->id)?>">
 								<img src="<?php echo public_url('admin/images')?>/icons/color/view.png">
 						 </a>
 						 
-						<a class="tipS verify_action" title="Xóa" href="<?php echo admin_url('dathang/del/'.$row->id)?>">
+						<a class="tipS verify_action" title="Xóa" href="<?php echo admin_url('donhang/del/'.$row->id)?>">
 						    <img src="<?php echo public_url('admin/images')?>/icons/color/delete.png">
 						</a>
 					</td>

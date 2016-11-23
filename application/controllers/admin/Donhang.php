@@ -75,7 +75,7 @@ Class Donhang extends MY_Controller
 			$user_id = $user_name_and_user_id[1];
 
 			$user_refer_and_user_refer_id = explode('-', $user_refer);
-			$user_refer_id = $user_refer_and_user_refer_id[1];
+			$user_refer_id = end($user_refer_and_user_refer_id);
 
 			//echo $this->session->userdata('admin_id'); die();
 
@@ -232,8 +232,8 @@ Class Donhang extends MY_Controller
 	   	    //if(is_array($time))
 
 	   	    {
-		   	    $where['notkeyword_date >='] = $created_in_mysql;
-		   	    $where['notkeyword_date <='] = $created_to_in_mysql;
+		   	    $where['ngay_giao_dich >='] = $created_in_mysql;
+		   	    $where['ngay_giao_dich <='] = $created_to_in_mysql;
 	   	    }
    	    }
         //gắn các điệu điện lọc
@@ -257,6 +257,16 @@ Class Donhang extends MY_Controller
 			$row->payment = 'dont care';
 
 			$row->status = 'why to care';
+
+			$row->cap_bac = $row->table_buyer;
+
+			$query = $this->db->query('SELECT name FROM ' . $row->table_buyer . ' WHERE id = ' . $row->buyer_id);
+
+			$row->khach_hang = $query->row()->name;
+
+			$query = $this->db->query('SELECT name FROM sub WHERE id = ' . $row->sub_id);
+
+			$row->sub = $query->row()->name;
 
 		}
 
@@ -318,24 +328,49 @@ Class Donhang extends MY_Controller
         //lay id cua giao dịch ma ta muon xoa
         $id = $this->uri->rsegment('3');
         //lay thong tin cua giao dịch
-        $info = $this->dathang_model->get_info($id);
+        $info = $this->donhang_model->get_info($id);
         if(!$info)
         {
             return false;
         }
 
-            // lay thong tin user tu bang user , roi gan vao bien $info
-            $this->load->model('user_model');
-            $user_info = $this->user_model->get_info($info->user_id);
+            if ($info->table_buyer == 'tongdaily') {
+            	// lay thong tin user tu bang user , roi gan vao bien $info
+	            $this->load->model('tongdaily_model');
+	            $user_info = $this->tongdaily_model->get_info($info->buyer_id);
 
-            $info->user_name = $user_info->name;
-            $info->user_email = $user_info->email;
-            $info->user_phone = $user_info->phone;
+	            $info->user_name = $user_info->name;
+	            $info->user_email = $user_info->email;
+	            $info->user_phone = $user_info->phone;
+            } elseif($info->table_buyer == 'daily') {
+            	// lay thong tin user tu bang user , roi gan vao bien $info
+	            $this->load->model('daily_model');
+	            $user_info = $this->daily_model->get_info($info->user_id);
+
+	            $info->user_name = $user_info->name;
+	            $info->user_email = $user_info->email;
+	            $info->user_phone = $user_info->phone;
+            } else {
+
+	            // lay thong tin user tu bang user , roi gan vao bien $info
+	            $this->load->model('chinhanh_model');
+	            $user_info = $this->chinhanh_model->get_info($info->user_id);
+
+	            $info->user_name = $user_info->name;
+	            $info->user_email = $user_info->email;
+	            $info->user_phone = $user_info->phone;
+
+	        }
 
             $info->message = "Nhap lieu vao thi co msg gi";
 
-            	$this->load->model('user_refer_model');
+            	/*$this->load->model('user_refer_model');
 	            $user_refer_info = $this->user_refer_model->get_info($info->user_refer_id);
+
+	            $info->user_refer_name = $user_refer_info->name;*/
+
+	            $this->load->model('sub_model');
+	            $user_refer_info = $this->sub_model->get_info($info->sub_id);
 
 	            $info->user_refer_name = $user_refer_info->name;
 
@@ -367,10 +402,10 @@ Class Donhang extends MY_Controller
             $info->_status = 'cancel';//hủy bỏ
         }
         //lấy danh sách đơn hàng  của giao dịch này
-        $this->load->model('dathang_dong_model');
+        $this->load->model('donhang_dong_model');
         $input = array();
-        $input['where'] = array('dathang_id' => $id);
-        $orders = $this->dathang_dong_model->get_list($input);
+        $input['where'] = array('donhang_id' => $id);
+        $orders = $this->donhang_dong_model->get_list($input);
         if(!$orders)
         {
             return false;
@@ -422,14 +457,14 @@ Class Donhang extends MY_Controller
                 $row->_can_cancel = false;//không thể kích hoạt
             }
             //link hủy bỏ đơn hàng
-            $row->_url_cancel = admin_url('dathang/cancel/'.$row->id);
-            $row->_url_active = admin_url('dathang/active/'.$row->id);//link kích hoạt đơn hàng
+            $row->_url_cancel = admin_url('donhang/cancel/'.$row->id);
+            $row->_url_active = admin_url('donhang/active/'.$row->id);//link kích hoạt đơn hàng
         }
 
         $this->data['info']   = $info;
         $this->data['orders'] = $orders;
         // Tai file thanh phan
-        $this->load->view('admin/dathang/view', $this->data);
+        $this->load->view('admin/donhang/view', $this->data);
     }
 
     /**
@@ -527,15 +562,15 @@ Class Donhang extends MY_Controller
      */
     private function _del($id)
     {
-        $dathang = $this->dathang_model->get_info($id);
-        if(!$dathang)
+        $donhang = $this->donhang_model->get_info($id);
+        if(!$donhang)
         {
             //tạo ra nội dung thông báo
             $this->session->set_flashdata('message', 'không tồn tại giao dịch này');
             redirect(admin_url('dathang'));
         }
         //thuc hien xoa san pham
-        $this->dathang_model->delete($id);
+        $this->donhang_model->delete($id);
 
     }
 }
